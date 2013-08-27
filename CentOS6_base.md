@@ -2,6 +2,7 @@ This is lovingly borrowed from here: http://cbednarski.com/articles/creating-vag
 
 
 Before We Begin
+=============
 
 You should have Vagrant 1.1 and VirtualBox and/or VMware Fusion Professional 5 installed. You can verify the version of vagrant via:
 
@@ -13,14 +14,17 @@ Vagrant version 1.1.5
 Also, all of the networking for vagrant requires your base box to use NAT (“Share with my Mac” in VMware). This is the default for VirtualBox and VMware, but if you’ve changed this somehow make sure your new boxes are created with the proper settings.
 
 Configuring the System
+=============
 
 Minimal Install
+-------------
 
-I started out with a cent 6.2 minimal image. It has a few quirks (which we’ll work through below) but it also produces a very small base box size with little effort. Smaller boxes are faster to download and clone, so your iteration loop will be faster overall. Our target boxes will end up around 400-500 mb each.
+I started out with a CentOS 6.4 minimal image. It has a few quirks (which we’ll work through below) but it also produces a very small base box size with little effort. Smaller boxes are faster to download and clone, so your iteration loop will be faster overall. Our target boxes will end up around 400-500 mb each.
 
 Networking
+-------------
 
-The Cent 6.2 minimal install does not enable networking by default. If you want to connect to the internet (you do want to connect to the internet), you’ll need to turn it on.
+The CentOS 6.4 minimal install does not enable networking by default. If you want to connect to the internet (you do want to connect to the internet), you’ll need to turn it on.
 
 The default connection is located in:
 
@@ -54,6 +58,7 @@ $ ping google.com
 If the command hangs or says there’s a timeout, you have a problem. Press Ctrl+C to interrupt the ping command and troubleshoot (i.e. go google things).
 
 Install VMWare Tools
+-------------
 
 Note: for VirtualBox, see the next section.
 
@@ -82,6 +87,7 @@ $ rm -rf /tmp/*
 ```
 
 Install the Virtual Box Guest Additions
+-------------
 
 If you’re creating a box for VirtualBox, use this process instead.
 
@@ -116,8 +122,10 @@ $ VBoxService --version
 ```
 
 Setting up the vagrant User
+=============
 
 Add the vagrant User
+-------------
 
 Next, we’ll need to install a vagrant user so vagrant can login to the box. This enables several critical vagrant features like vagrant ssh and vagrant provision.
 
@@ -138,6 +146,7 @@ Default !requiretty
 ```
 
 Install opensshd
+-------------
 
 Since we want to be able to login to the box remotely we’ll need to install opensshd:
 
@@ -154,6 +163,7 @@ $ /etc/init.d/sshd status
 ```
 
 Add the vagrant public key
+-------------
 
 In order for the vagrant user to connect to the vm we’ll need to add the vagrant public key to the vagrant user’s authorized_keys file.
 
@@ -166,6 +176,7 @@ $ chmod -R 0600 /home/vagrant/.ssh/*
 ```
 
 Install Chef
+================
 
 Wait…what’s Chef? Vagrant uses something called a “provisioner” to deploy code and configuration to your box after you run vagrant up. Chef is one of these provisioners.
 
@@ -192,6 +203,7 @@ Chef: 10.18.2
 Opscode has a page that documents this process, which you can reference if you run into problems.
 
 Reboot
+-------------
 
 When you’re done making these changes, restart the machine.
 
@@ -202,6 +214,7 @@ $ shutdown -r now
 Verify you can login with the vagrant user and sudo ls /root.
 
 Packaging the Box
+================
 
 Once the OS is setup you’ll need to package the box for shipment. This process differs depending on whether you’re targeting VirtualBox or VMware.
 
@@ -212,6 +225,7 @@ $ shutdown -h now
 ```
 
 VMware
+---------------
 
 VMware puts its vms into ~/Documents/Virtual Machines.localized/, so I found mine via:
 
@@ -257,6 +271,7 @@ Aaand we’re done! Skip to Adding and Upping the Box, below, to continue.
 The vagrant docs have some notes on this process if you want to read more.
 
 VirtualBox
+------------------
 
 Navigate into the directory where your box is located. On my system, this is:
 
@@ -331,6 +346,7 @@ $ mv vagrant-cent62-x64.virtualbox.box ~/Desktop
 ```
 
 Using the Box
+=======================
 
 You’re ready to add the box and test!
 
