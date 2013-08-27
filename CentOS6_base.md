@@ -4,14 +4,14 @@ This is lovingly borrowed from here: http://cbednarski.com/articles/creating-vag
 Before We Begin
 =============
 
-You should have Vagrant 1.1 and VirtualBox and/or VMware Fusion Professional 5 installed. You can verify the version of vagrant via:
+You should have Vagrant 1.2 and VirtualBox 4.2 or VMware Fusion Professional 5 or VMware Workstation 5 installed. You can verify the version of vagrant via:
 
 ```
 $ vagrant -v
-Vagrant version 1.1.5
+Vagrant version 1.2.7
 ```
 
-Also, all of the networking for vagrant requires your base box to use NAT (“Share with my Mac” in VMware). This is the default for VirtualBox and VMware, but if you’ve changed this somehow make sure your new boxes are created with the proper settings.
+Also, all of the networking for vagrant requires your base box to use NAT ("Share with my Mac" in VMware). This is the default for VirtualBox and VMware, but if you’ve changed this somehow make sure your new boxes are created with the proper settings.
 
 Configuring the System
 =============
@@ -19,7 +19,7 @@ Configuring the System
 Minimal Install
 -------------
 
-I started out with a CentOS 6.4 minimal image. It has a few quirks (which we’ll work through below) but it also produces a very small base box size with little effort. Smaller boxes are faster to download and clone, so your iteration loop will be faster overall. Our target boxes will end up around 400-500 mb each.
+I started out with a CentOS 6.4 minimal image. It has a few quirks (which we’ll work through below) but it also produces a very small base box size with little effort. Smaller boxes are faster to download and clone, so your iteration loop will be faster overall. Our target boxes will end up around 400-500 MB each.
 
 Networking
 -------------
@@ -75,7 +75,7 @@ Next, we’ll need to extract and install the vmware tools (after typing VM, bel
 ```
 $ cd /tmp
 $ tar -xzf /media/cdrom/VM[tab].tar.gz
-$ yum install -y perl
+$ yum install -y perl fuse-libs
 $ /tmp/vmware-tools-distrib/vmware-install.pl --default
 ```
 
